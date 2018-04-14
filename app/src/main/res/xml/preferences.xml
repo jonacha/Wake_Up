@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:title="Residencia"
+        android:key="residencia"
+        android:summary="Resisdencia de trabajo"/>
+   <SwitchPreference
+       android:title="Geolocalizacion"
+       android:key="localizacion"
+       android:summary="Geolocalizacion active"/>
+    <SwitchPreference
+        android:key="Bluethood"
+        android:title="Bluethood"
+        android:summary="Bluethod active"
+        android:defaultValue="false"
+        />
+
+</PreferenceScreen>

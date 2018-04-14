@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pract.es.deusto.wake_up.NewUser">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/heart"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/nombre_reg_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre User"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/altura_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Aldura Cm"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/peso_reg_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Peso Kg"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/telephhono_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefono"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/fecha_nac_reg_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha nacimiento"
+        android:inputType="date"/>
+    <EditText
+        android:id="@+id/descripcion_reg_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Desciccion"
+        android:inputType="text"/>
+    <Button
+        android:id="@+id/btn_registro_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar usuario"/>
+    <Button
+        android:id="@+id/btn_back_reg_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver"/>
+
+</LinearLayout>
