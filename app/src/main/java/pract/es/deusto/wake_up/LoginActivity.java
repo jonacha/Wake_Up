@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
          intentMenu.putExtra("cod_profesional",cod_profesional);
          intentMenu.putExtra("nombre_pro",nombre_pro);
          LoginActivity.this.startActivity(intentMenu);
+         info.close();
      }catch (Exception e){
          Toast.makeText(getApplicationContext(),"El usuario no existe ",Toast.LENGTH_LONG).show();
          limpiar();

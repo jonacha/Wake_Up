@@ -18,17 +18,7 @@ public class Medicion extends AppCompatActivity {
     int pulsaciones []=new int [20];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        volver=findViewById(R.id.btn_volvel_medicion);
-        volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               /* Intent intentMenu=new Intent(Medicion.this,Menu_Lateral.class);
-                intentMenu.putExtra("email",Menu_Lateral.Email_medico);
-                intentMenu.putExtra("cod_profesional",Menu_Lateral.profresionalId);
-                intentMenu.putExtra("nombre_pro",Menu_Lateral.Nombre_medico);
-                Medicion.this.startActivity(intentMenu);*/
-            }
-        });
+
         int i=80;
         int j=0;
         for (j=0;j<20;j++){
@@ -39,7 +29,18 @@ public class Medicion extends AppCompatActivity {
         setContentView(R.layout.activity_medicion);
         double medicion, tiempo=-5.0;
         String tiempo2="sdiopc";
+        volver=findViewById(R.id.btn_vas_a_funcionar);
 
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMenu=new Intent(Medicion.this,Menu_Lateral.class);
+                intentMenu.putExtra("email",Menu_Lateral.Email_medico);
+                intentMenu.putExtra("cod_profesional",Menu_Lateral.profresionalId);
+                intentMenu.putExtra("nombre_pro",Menu_Lateral.Nombre_medico);
+                Medicion.this.startActivity(intentMenu);
+            }
+        });
         GraphView graph =findViewById(R.id.graph);
         mediciones =new LineGraphSeries<DataPoint>();
         Random rand=new Random();

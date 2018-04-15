@@ -44,7 +44,7 @@ public class Menu_Lateral extends AppCompatActivity
         Nombre_medico=getIntent().getExtras().getSerializable("nombre_pro").toString();
         Email_medico=getIntent().getExtras().getSerializable("email").toString();
         profresionalId=Integer.parseInt(getIntent().getExtras().getSerializable("cod_profesional").toString());
-        Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
         Nombre=findViewById(R.id.nombre_Menu);
        // Nombre.getText();
         PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
@@ -107,6 +107,10 @@ public class Menu_Lateral extends AppCompatActivity
             Intent intent=new Intent(this, MySettings.class);
             startActivity(intent);
             return true;
+        }
+        if(id==R.id.geo){
+            Intent intentGeo=new Intent(Menu_Lateral.this,Maps_activiti.class);
+            Menu_Lateral.this.startActivity(intentGeo);
         }
 
         return super.onOptionsItemSelected(item);

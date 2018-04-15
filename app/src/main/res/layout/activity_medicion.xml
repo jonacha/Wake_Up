@@ -5,13 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pract.es.deusto.wake_up.Medicion">
+
+
 <com.jjoe64.graphview.GraphView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/graph"/>
     <Button
-        android:id="@+id/btn_volvel_medicion"
+        android:id="@+id/btn_vas_a_funcionar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Volver"/>
+        android:text="Volver"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="463dp"
+        tools:ignore="MissingConstraints" />
+
 </android.support.constraint.ConstraintLayout>
