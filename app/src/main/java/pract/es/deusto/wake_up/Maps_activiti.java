@@ -60,7 +60,10 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
     }
 
     private void agregarMarcador(double lat, double lng) {
-        LatLng coordenadas = new LatLng(lat, lng);
+     LatLng coordenadas = new LatLng(lat, lng);
+        /*poner un control para cuando de 0
+        * */
+        //LatLng coordenadas = new LatLng(43.27118, -2.937599999999975);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (marcador != null) marcador.remove();
         marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi posicion actual")

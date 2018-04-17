@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,10 @@ public class Menu_Lateral extends AppCompatActivity
     static  String Email_medico;
     public  ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
+    Button ListaPacientes;
+    Button AddUser;
+    Button Mediciones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +52,33 @@ public class Menu_Lateral extends AppCompatActivity
         //Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
         Nombre=findViewById(R.id.nombre_Menu);
        // Nombre.getText();
+
         PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
+        ListaPacientes=findViewById(R.id.btn_listaPacientes);
+        ListaPacientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,List_users.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });
 
-
+        AddUser=findViewById(R.id.btn_add_user);
+        AddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,NewUser.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });
+        Mediciones=findViewById(R.id.btn_medicion);
+        Mediciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,Medicion.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });
 
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -69,7 +98,6 @@ public class Menu_Lateral extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 /*
         Nombre=findViewById(R.id.nombre_Menu);
         Nombre.setText(getIntent().getExtras().getSerializable("nombre_pro").toString());
@@ -129,10 +157,10 @@ public class Menu_Lateral extends AppCompatActivity
             Menu_Lateral.this.startActivity(intentReg);
             // Handle the camera action
         } else if (id == R.id.nav_lista) {
-            Intent intentMenu=new Intent(Menu_Lateral.this,Menu_Lateral.class);
-            intentMenu.putExtra("email",Email_medico);
+            Intent intentMenu=new Intent(Menu_Lateral.this,List_users.class);
+           /* intentMenu.putExtra("email",Email_medico);
             intentMenu.putExtra("cod_profesional",profresionalId);
-            intentMenu.putExtra("nombre_pro",Nombre_medico);
+            intentMenu.putExtra("nombre_pro",Nombre_medico);*/
 
             Menu_Lateral.this.startActivity(intentMenu);
         } else if (id == R.id.nav_medicion) {
@@ -156,7 +184,7 @@ public class Menu_Lateral extends AppCompatActivity
         Cursor info=db.rawQuery(login,null);
         info.moveToFirst();
         try{
-
+           // Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"El usuario no tiene pacientes ",Toast.LENGTH_LONG).show();

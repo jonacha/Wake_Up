@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     int cod_profesional;
     String email_pro;
     String nombre_pro;
+
     public  ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
     @Override
