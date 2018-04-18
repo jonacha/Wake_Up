@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pract.es.deusto.wake_up.List_Pacientes">
+    tools:context="pract.es.deusto.wake_up.List_Pacientes_no_sirve">
 <TextView
     android:layout_width="wrap_content"
     android:text="Lista pacientes"

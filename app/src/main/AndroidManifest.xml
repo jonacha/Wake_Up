@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registro" />
-        <activity android:name=".List_Pacientes" />
+        <activity android:name=".List_Pacientes_no_sirve" />
         <activity
             android:name=".Menu_Lateral"
             android:label="@string/title_activity_menu__lateral"
@@ -47,7 +47,8 @@
         <activity
             android:name=".Maps_activiti"
             android:label="@string/title_activity_maps_activiti" />
-        <activity android:name=".List_users"></activity>
+        <activity android:name=".List_users" />
+        <activity android:name=".User_data"></activity>
     </application>
 
 </manifest>

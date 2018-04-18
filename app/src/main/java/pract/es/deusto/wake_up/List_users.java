@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 
@@ -46,6 +47,22 @@ public class List_users extends AppCompatActivity {
         sacarPacientes();
         ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,listanombres);
         listViewUsuarios.setAdapter(adapter);
+        listViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("STATE","Usuarios lista"+ i +" Usuario " +listaruser.get(i).getNombre() );
+              Intent intentMenu=new Intent(List_users.this,User_data.class);
+                intentMenu.putExtra("nombre",listaruser.get(i).getNombre());
+                intentMenu.putExtra("tel",listaruser.get(i).getTelefono());
+                intentMenu.putExtra("peso",listaruser.get(i).getPeso());
+                intentMenu.putExtra("descrip",listaruser.get(i).getDescripcion());
+                intentMenu.putExtra("altura",listaruser.get(i).getAltura());
+                intentMenu.putExtra("residencia",listaruser.get(i).getResidencia());
+
+                List_users.this.startActivity(intentMenu);
+                //metodos para llamar a la clase ver datos paciente
+            }
+        });
     }
     public void sacarPacientes(){
         db=conn.getReadableDatabase();
@@ -77,7 +94,7 @@ public class List_users extends AppCompatActivity {
         listanombres=new ArrayList<String>();
         for(int i=0;i<listaruser.size();i++){
             Log.d("STATE",listaruser.get(i).getNombre());
-            listanombres.add(listaruser.get(i).getNombre()+" TELF: " +listaruser.get(i).getTelefono() );
+            listanombres.add("\t User name:"+listaruser.get(i).getNombre()+" \n  \t TELF: " +listaruser.get(i).getTelefono() );
         }
         // Toast.makeText(getApplicationContext(),"llego 1 ",Toast.LENGTH_LONG).show();
     }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pract.es.deusto.wake_up.User_data">
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/heart"
+            android:layout_gravity="center"/>
+        <EditText
+            android:id="@+id/nombre_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre User"
+            android:inputType="text"
+            android:enabled="false"/>
+        <EditText
+            android:id="@+id/altura_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Aldura Cm"
+            android:inputType="number"
+            android:enabled="false"/>
+        <EditText
+            android:id="@+id/peso_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso Kg"
+            android:inputType="number"
+            android:enabled="false"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/telephhono_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Telefono"
+            android:inputType="number"
+            android:enabled="false"/>
+        <Button
+            android:id="@+id/btn_llamar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:drawableBottom="@drawable/ic_call_black_24dp"
+            />
+
+    </LinearLayout>
+        <EditText
+            android:id="@+id/residencia_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Resicdencia"
+            android:inputType="date"
+            android:enabled="false"/>
+        <EditText
+            android:id="@+id/descripcion_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Desciccion"
+            android:inputType="text"
+            android:enabled="false"/>
+    <EditText
+        android:id="@+id/acelerometro_usuer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Acelerometro"
+        android:inputType="text"
+        android:enabled="false"/>
+        <Button
+            android:id="@+id/btn_acelerometro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acelerometert"/>
+        <Button
+            android:id="@+id/btn_back__user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volver"/>
+
+    </LinearLayout>
+

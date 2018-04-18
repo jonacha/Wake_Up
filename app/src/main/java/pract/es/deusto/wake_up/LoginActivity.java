@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         conn=new ConexionSQLiteHelper(getApplicationContext(),"Wake_Up",null,1);
         db=conn.getReadableDatabase();
-        //db.execSQL(Utilidades.CREATE_TABLE_USER);
+        db.execSQL(Utilidades.CREATE_TABLE_USER);
         nombre=(EditText) findViewById(R.id.nick_email);
         pass=(EditText) findViewById(R.id.password) ;
         login=findViewById(R.id.btn_login);
@@ -65,13 +65,13 @@ public class LoginActivity extends AppCompatActivity {
          cod_profesional=Integer.parseInt(info.getString(0));
          email_pro=info.getString(1);
          nombre_pro=info.getString(2);
-
+         info.close();
          Intent intentMenu=new Intent(LoginActivity.this,Menu_Lateral.class);
          intentMenu.putExtra("email",email_pro);
          intentMenu.putExtra("cod_profesional",cod_profesional);
          intentMenu.putExtra("nombre_pro",nombre_pro);
          LoginActivity.this.startActivity(intentMenu);
-         info.close();
+
      }catch (Exception e){
          Toast.makeText(getApplicationContext(),"El usuario no existe ",Toast.LENGTH_LONG).show();
          limpiar();

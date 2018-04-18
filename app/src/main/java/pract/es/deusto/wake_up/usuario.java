@@ -75,4 +75,7 @@ public class usuario  implements Serializable{
         this.residencia = residencia;
         this.telefono = telefono;
     }
+
+    public usuario() {
+    }
 }
