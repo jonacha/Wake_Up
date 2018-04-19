@@ -75,11 +75,7 @@
         android:hint="Acelerometro"
         android:inputType="text"
         android:enabled="false"/>
-        <Button
-            android:id="@+id/btn_acelerometro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Acelerometert"/>
+
         <Button
             android:id="@+id/btn_back__user"
             android:layout_width="match_parent"
