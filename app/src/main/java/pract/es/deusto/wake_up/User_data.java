@@ -1,6 +1,7 @@
 package pract.es.deusto.wake_up;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,12 @@ public class User_data extends AppCompatActivity {
 
 
         llamar_btn=findViewById(R.id.btn_llamar);
+        llamar_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialContactPhone(tel);
+            }
+        });
         acelerometro_btn=findViewById(R.id.btn_acelerometro);
         volver_btn=findViewById(R.id.btn_back__user);
 
@@ -60,5 +67,8 @@ public class User_data extends AppCompatActivity {
             }
         });
 
+    }
+    private void dialContactPhone(final String phoneNumber){
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneNumber,null)));
     }
 }

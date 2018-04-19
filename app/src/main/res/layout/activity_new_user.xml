@@ -35,12 +35,12 @@
         android:layout_height="wrap_content"
         android:hint="Telefono"
         android:inputType="number"/>
-    <EditText
+    <!--<EditText
         android:id="@+id/fecha_nac_reg_use"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Fecha nacimiento"
-        android:inputType="date"/>
+        android:inputType="date"/>-->
     <EditText
         android:id="@+id/descripcion_reg_user"
         android:layout_width="match_parent"

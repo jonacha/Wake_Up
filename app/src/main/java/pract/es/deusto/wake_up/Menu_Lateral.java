@@ -132,8 +132,9 @@ public class Menu_Lateral extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            Intent intent=new Intent(this, MySettings.class);
+            Intent intent=new Intent(Menu_Lateral.this, MySettings.class);
             startActivity(intent);
+
             return true;
         }
         if(id==R.id.geo){
