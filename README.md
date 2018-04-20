@@ -1,6 +1,7 @@
 
 -----------------------------------------------------------------------------------------
-# Wake_Up  ESPAÑOL
+# Wake_Up ESPAÑOL
+
 Es mi primera aplicación creada con Android studio en ella se hace uso de las siguientes 
 librerías y funciones que ofrecen Android las cuales son:
   Maps Para el posicionamiento del móvil en el mapa
