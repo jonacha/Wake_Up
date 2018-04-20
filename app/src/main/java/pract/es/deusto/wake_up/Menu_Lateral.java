@@ -80,15 +80,7 @@ public class Menu_Lateral extends AppCompatActivity
             }
         });
 
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,11 +90,8 @@ public class Menu_Lateral extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-/*
-        Nombre=findViewById(R.id.nombre_Menu);
-        Nombre.setText(getIntent().getExtras().getSerializable("nombre_pro").toString());
-        Email=findViewById(R.id.email_Menu);
-        Email.setText(getIntent().getExtras().getSerializable("nombre").toString());*/
+
+
     }
 
     @Override
@@ -119,6 +108,10 @@ public class Menu_Lateral extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu__lateral, menu);
+        Nombre=findViewById(R.id.nombre_Menu);
+        Nombre.setText(Nombre_medico);
+        Email=findViewById(R.id.email_Menu);
+        Email.setText( Email_medico);
         return true;
     }
 
@@ -177,30 +170,6 @@ public class Menu_Lateral extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void InicializarLista() {
-        conn=new ConexionSQLiteHelper(getApplicationContext(),"Wake_Up",null,1);
-        db=conn.getReadableDatabase();
-        String login= "select *from usuario where cod_enf="+profresionalId+";";
 
-        Cursor info=db.rawQuery(login,null);
-        info.moveToFirst();
-        try{
-           // Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
 
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(),"El usuario no tiene pacientes ",Toast.LENGTH_LONG).show();
-
-        }
-
-    }
-    /*
-    public static class SettingScrenn extends PreferenceFragment{
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preferences);
-            Fragment f=new SettingScrenn();
-            getFragmentManager().beginTransaction().replace(android.R.id.content,f).commit();
-        }
-    }*/
 }

@@ -93,7 +93,7 @@ public class List_users extends AppCompatActivity {
     private void obtenerListaUsuarios() {
         listanombres=new ArrayList<String>();
         for(int i=0;i<listaruser.size();i++){
-            Log.d("STATE",listaruser.get(i).getNombre());
+           // Log.d("STATE",listaruser.get(i).getNombre());
             listanombres.add("\t User name:"+listaruser.get(i).getNombre()+" \n  \t TELF: " +listaruser.get(i).getTelefono() );
         }
         // Toast.makeText(getApplicationContext(),"llego 1 ",Toast.LENGTH_LONG).show();

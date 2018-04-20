@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="pract.es.deusto.wake_up.LoginActivity">
     <Button
-        android:id="@+id/btn_vas_a_funcionar"
+        android:id="@+id/btn_maps_volver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Volver"

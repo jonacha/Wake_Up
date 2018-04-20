@@ -2,6 +2,7 @@ package pract.es.deusto.wake_up;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +30,7 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
+    Button volver;
 
 
     @Override
@@ -71,12 +75,24 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
         mMap.animateCamera(miUbicacion);
         Log.d("STATE","Latitud: "+lat+"Altitud: "+lng);
+        volver=findViewById(R.id.btn_maps_volver);
+
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMenu=new Intent(Maps_activiti.this,Menu_Lateral.class);
+                intentMenu.putExtra("email",Menu_Lateral.Email_medico);
+                intentMenu.putExtra("cod_profesional",Menu_Lateral.profresionalId);
+                intentMenu.putExtra("nombre_pro",Menu_Lateral.Nombre_medico);
+                Maps_activiti.this.startActivity(intentMenu);
+            }
+        });
     }
 
     private void actualzarUbicacion(Location location) {
         if (location != null) {
             lat = location.getLatitude();
-            lng = location.getAltitude();
+            lng = location.getLongitude();
 
             agregarMarcador(lat, lng);
         }
@@ -109,14 +125,18 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locListener);
-            actualzarUbicacion(location);
             return;
 
         }
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locListener);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        // Log.d("LOCATION","Alt: "+location.getAltitude()+"Lat:"+location.getLatitude());
+        actualzarUbicacion(location);
+
 
     }
 }
