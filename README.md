@@ -1,6 +1,7 @@
 
----------------------------------ESPAÑOL--------------------------------------------------------
-# Wake_Up es mi primera aplicación creada con Android studio en ella se hace uso de las siguientes 
+-----------------------------------------------------------------------------------------
+# Wake_Up  ESPAÑOL
+Es mi primera aplicación creada con Android studio en ella se hace uso de las siguientes 
 librerías y funciones que ofrecen Android las cuales son:
   Maps Para el posicionamiento del móvil en el mapa
   Chart para hacer gráficos con mediciones.
@@ -10,8 +11,9 @@ librerías y funciones que ofrecen Android las cuales son:
   Preferentes: para determinar la residencia en la cual estamos.
   Listas: Sacando la información la cual el medico está relacionado.
   Acelerómetro para determinar la velocidad con la que se mueve el paciente.
---------------------------------INGLÉS--------------------------------------------------------
-# Wake_Up is my first application created with Android studio, it uses the following
+----------------------------------------------------------------------------------------
+# Wake_Up INGLÉS
+Is my first application created with Android studio, it uses the following
 libraries and features offered by Android which are:
    Maps For the positioning of the mobile on the map
    Chart to make graphs with measurements.
