@@ -8,7 +8,8 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -48,7 +49,8 @@
             android:name=".Maps_activiti"
             android:label="@string/title_activity_maps_activiti" />
         <activity android:name=".List_users" />
-        <activity android:name=".User_data"></activity>
+        <activity android:name=".User_data" />
+        <activity android:name=".Foto_perfil"></activity>
     </application>
 
 </manifest>

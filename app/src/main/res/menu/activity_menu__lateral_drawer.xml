@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_favorite_black_24dp"
             android:title="Medicion" />
         <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Select foto" />
+        <item
             android:id="@+id/nav_logoff"
             android:icon="@drawable/ic_input_black_24dp"
             android:title="Salir" />

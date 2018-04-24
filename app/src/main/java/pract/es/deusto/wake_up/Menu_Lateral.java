@@ -161,6 +161,9 @@ public class Menu_Lateral extends AppCompatActivity
             Intent intentReg=new Intent(Menu_Lateral.this,Medicion.class);
             Menu_Lateral.this.startActivity(intentReg);
 
+        }else if (id == R.id.nav_perfil) {
+            Intent intentReg=new Intent(Menu_Lateral.this,Foto_perfil.class);
+            Menu_Lateral.this.startActivity(intentReg);
         } else if (id == R.id.nav_logoff) {
             Intent intentReg=new Intent(Menu_Lateral.this,LoginActivity.class);
             Menu_Lateral.this.startActivity(intentReg);
