@@ -1,5 +1,7 @@
 package pract.es.deusto.wake_up;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,6 +32,7 @@ public class Foto_perfil extends AppCompatActivity {
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
+    Button volver;
     private ImageView ivImage;
     private String userChoosenTask;
 
@@ -45,6 +49,18 @@ public class Foto_perfil extends AppCompatActivity {
             }
         });
         ivImage = (ImageView) findViewById(R.id.ivImage);
+        volver=findViewById(R.id.btn_foto_perfil_volver);
+
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMenu=new Intent(Foto_perfil.this,Menu_Lateral.class);
+                intentMenu.putExtra("email",Menu_Lateral.Email_medico);
+                intentMenu.putExtra("cod_profesional",Menu_Lateral.profresionalId);
+                intentMenu.putExtra("nombre_pro",Menu_Lateral.Nombre_medico);
+                Foto_perfil.this.startActivity(intentMenu);
+            }
+        });
     }
 
     @Override
@@ -98,6 +114,7 @@ public class Foto_perfil extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+
     }
 
     private void cameraIntent()
@@ -126,6 +143,7 @@ public class Foto_perfil extends AppCompatActivity {
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
+
         FileOutputStream fo;
         try {
             destination.createNewFile();
@@ -139,9 +157,14 @@ public class Foto_perfil extends AppCompatActivity {
         }
 
         ivImage.setImageBitmap(thumbnail);
+        String imagen_Codificada= CodificarLaIMagen(thumbnail);
+        guardarIMagen(imagen_Codificada);
+
+     /*   SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        String Residencia=SP.getString("image","NA");*/
     }
 
-    @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
         Bitmap bm=null;
@@ -152,7 +175,24 @@ public class Foto_perfil extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
         ivImage.setImageBitmap(bm);
+        String imagen_Codificada= CodificarLaIMagen(bm);
+            guardarIMagen(imagen_Codificada);
+
     }
+    private static String CodificarLaIMagen(Bitmap bm){
+        ByteArrayOutputStream imageByte=new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG,100,imageByte);
+        byte [] b=imageByte.toByteArray();
+        String imageEncored= android.util.Base64.encodeToString(b, android.util.Base64.DEFAULT);
+        return imageEncored;
+    }
+    private void guardarIMagen(String imagen_Codificada){
+        SharedPreferences editor= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor editorImage=editor.edit();
+        editorImage.putString("image",imagen_Codificada);
+        editorImage.commit();
+    }
+
+
 }

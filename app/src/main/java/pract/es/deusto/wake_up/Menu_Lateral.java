@@ -3,8 +3,11 @@ package pract.es.deusto.wake_up;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -12,6 +15,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +44,7 @@ public class Menu_Lateral extends AppCompatActivity
     Button ListaPacientes;
     Button AddUser;
     Button Mediciones;
+    private ImageView ivImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +58,13 @@ public class Menu_Lateral extends AppCompatActivity
         profresionalId=Integer.parseInt(getIntent().getExtras().getSerializable("cod_profesional").toString());
         //Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
         Nombre=findViewById(R.id.nombre_Menu);
+
        // Nombre.getText();
 
         PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
+
+/*
+   */
         ListaPacientes=findViewById(R.id.btn_listaPacientes);
         ListaPacientes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +123,17 @@ public class Menu_Lateral extends AppCompatActivity
         Nombre.setText(Nombre_medico);
         Email=findViewById(R.id.email_Menu);
         Email.setText( Email_medico);
+        SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        ivImage=findViewById(R.id.image_menu);
+
+        String image=SP.getString("image","NA");
+        Log.d("STATE","image: "+ image);
+        if(image.equalsIgnoreCase("NA")) {
+
+        }
+        else{
+            ivImage.setImageBitmap(decodificar(image));
+        }
         return true;
     }
 
@@ -172,6 +194,10 @@ public class Menu_Lateral extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public static Bitmap decodificar(String imput){
+        byte []decodedByte= Base64.decode(imput,0);
+        return BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.length);
     }
 
 

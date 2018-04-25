@@ -19,8 +19,14 @@
             android:layout_height="wrap_content"
             android:text="Select Photo" />
 
-    </LinearLayout>
 
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_foto_perfil_volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        tools:ignore="MissingConstraints" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,4 +40,5 @@
             android:layout_height="wrap_content"
             android:src="@drawable/enfermera" />
     </LinearLayout>
+
 </LinearLayout>

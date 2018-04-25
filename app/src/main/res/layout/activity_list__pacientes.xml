@@ -12,7 +12,4 @@
     android:textSize="25dp"
     android:layout_gravity="center"
     android:layout_height="wrap_content" />
-
-
-
 </LinearLayout>

@@ -13,5 +13,10 @@
         android:summary="Bluethod active"
         android:defaultValue="false"
         />
+    <EditTextPreference android:title="Image dirección"
+        android:key="image"
+        android:text="Enfermera_PNG"
+        android:summary="Resisdencia de trabajo"
+        android:enabled="false"/>
 
 </PreferenceScreen>
