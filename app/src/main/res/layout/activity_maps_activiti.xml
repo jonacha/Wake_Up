@@ -24,5 +24,4 @@
     android:layout_height="match_parent"
     tools:context="pract.es.deusto.wake_up.Maps_activiti" />
 
-
 </LinearLayout>

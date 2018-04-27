@@ -21,9 +21,9 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
     EditText nombre_EdT,telefono_EdT,peso_EdT,altura_EdT,residencia_Edt,decripcion_EdT,acelerometro_EdT;
     Button volver_btn,llamar_btn;
     String tel,nombre,peso,altura,resi,decri,aceler;
-    private SensorManager senSensorManager;
+    private SensorManager Acelerometro;
     private Sensor senAccelerometer;
-    private long lastUpdate = 0;
+    private long UltimaLectura = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
 
@@ -79,10 +79,9 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
                 User_data.this.startActivity(intentMenu);
             }
         });
-
-        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+        Acelerometro = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        senAccelerometer = Acelerometro.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Acelerometro.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
 
     }
     private void dialContactPhone(final String phoneNumber){
@@ -90,40 +89,38 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
     }
     protected void onPause() {
         super.onPause();
-        senSensorManager.unregisterListener(this);
+        Acelerometro.unregisterListener(this);
     }
 
     protected void onResume() {
         super.onResume();
-        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        Acelerometro.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        Sensor mySensor = sensorEvent.sensor;
+    public void onSensorChanged(SensorEvent SensorEvent) {
+        Sensor mySensor = SensorEvent.sensor;
 
         if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float x = sensorEvent.values[0];
-            float y = sensorEvent.values[1];
-            float z = sensorEvent.values[2];
+            float x = SensorEvent.values[0];
+            float y = SensorEvent.values[1];
+            float z = SensorEvent.values[2];
 
-            long curTime = System.currentTimeMillis();
+            long TiempoActual = System.currentTimeMillis();
 
-            if ((curTime - lastUpdate) > 100) {
-                long diffTime = (curTime - lastUpdate);
-                lastUpdate = curTime;
+            if ((TiempoActual - UltimaLectura) > 100) {
+                long diffTime = (TiempoActual - UltimaLectura);
+                UltimaLectura = TiempoActual;
 
                 float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
 
                 }
-
                 last_x = x;
                 last_y = y;
                 last_z = z;
             }
-            Log.d("STATE","("+last_x+","+last_y+","+last_z+")");
             aceler="("+last_x+","+last_y+","+last_z+")";
             acelerometro_EdT.setText(aceler);
         }

@@ -1,6 +1,7 @@
 package pract.es.deusto.wake_up;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,13 +23,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Foto_perfil extends AppCompatActivity {
-
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
@@ -49,6 +51,16 @@ public class Foto_perfil extends AppCompatActivity {
             }
         });
         ivImage = (ImageView) findViewById(R.id.ivImage);
+        SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        String image=SP.getString("image","NA");
+        // Log.d("STATE","image: "+ image);
+        if(image.equalsIgnoreCase("NA")) {
+
+        }
+        else{
+            ivImage.setImageBitmap(decodificar(image));
+        }
         volver=findViewById(R.id.btn_foto_perfil_volver);
 
         volver.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +80,9 @@ public class Foto_perfil extends AppCompatActivity {
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChoosenTask.equals("Take Photo"))
+                    if(userChoosenTask.equals("Tomar Foto"))
                         cameraIntent();
-                    else if(userChoosenTask.equals("Choose from Library"))
+                    else if(userChoosenTask.equals(" Galeria Imagenes"))
                         galleryIntent();
                 } else {
                     //code for deny
@@ -80,23 +92,23 @@ public class Foto_perfil extends AppCompatActivity {
     }
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
+        final CharSequence[] items = { "Tomar Foto", " Galeria Imagenes",
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Foto_perfil.this);
-        builder.setTitle("Add Photo!");
+        builder.setTitle("Añadir Foto!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 boolean result=Utility.checkPermission(Foto_perfil.this);
 
-                if (items[item].equals("Take Photo")) {
-                    userChoosenTask ="Take Photo";
+                if (items[item].equals("Tomar Foto")) {
+                    userChoosenTask ="Tomar Foto";
                     if(result)
                         cameraIntent();
 
-                } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask ="Choose from Library";
+                } else if (items[item].equals(" Galeria Imagenes")) {
+                    userChoosenTask =" Galeria Imagenes";
                     if(result)
                         galleryIntent();
 
@@ -177,7 +189,7 @@ public class Foto_perfil extends AppCompatActivity {
         }
         ivImage.setImageBitmap(bm);
         String imagen_Codificada= CodificarLaIMagen(bm);
-            guardarIMagen(imagen_Codificada);
+        guardarIMagen(imagen_Codificada);
 
     }
     private static String CodificarLaIMagen(Bitmap bm){
@@ -192,6 +204,10 @@ public class Foto_perfil extends AppCompatActivity {
         SharedPreferences.Editor editorImage=editor.edit();
         editorImage.putString("image",imagen_Codificada);
         editorImage.commit();
+    }
+    public static Bitmap decodificar(String imput){
+        byte []decodedByte= android.util.Base64.decode(imput,0);
+        return BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.length);
     }
 
 

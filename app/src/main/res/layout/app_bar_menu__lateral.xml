@@ -41,6 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Medicion"/>
+    <Button
+        android:id="@+id/btn_Foto_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Foto de perfil"/>
+
 
 
 <!--

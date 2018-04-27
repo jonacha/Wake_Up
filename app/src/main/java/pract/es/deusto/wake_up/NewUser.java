@@ -52,7 +52,6 @@ public class NewUser extends AppCompatActivity {
                 NewUser.this.startActivity(intentMenu);
             }
         });
-        //btn_back_reg_user
     }
 
     private void RegistrarPacienteSQL() {
@@ -63,9 +62,7 @@ public class NewUser extends AppCompatActivity {
         Integer pes=Integer.parseInt(peso.getText().toString());
         Integer alt=Integer.parseInt(altura.getText().toString());
         SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
         String Residencia=SP.getString("residencia","NA");
-        Log.d("STATE",Residencia);
         String insertExaple="Insert Into usuario (nombre,  descripcion ,altura,peso,telefono,residencia,cod_enf) " +
                 "    values     ('"+ nombre_user.getText().toString()+"','"+descripcion.getText().toString()+"',"+alt+","+pes+","+tel+",'"+Residencia+"',"+Menu_Lateral.profresionalId+");";
 

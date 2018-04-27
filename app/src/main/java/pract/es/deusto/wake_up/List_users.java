@@ -68,23 +68,12 @@ public class List_users extends AppCompatActivity {
         db=conn.getReadableDatabase();
         String Query="select * from usuario where cod_enf="+Menu_Lateral.profresionalId+";";
         Cursor info=db.rawQuery(Query,null);
-         /* CREATE TABLE IF NOT EXISTS usuario (cod_usuario INTEGER primary key  AUTOINCREMENT NOT NULL,
-             * nombre TEXT not null UNIQUE, descripcion TEXT not null ,altura INTEGER,
-             * peso INTEGER,telefono INTEGER , residencia TEXT,  cod_enf INTEGER not null);
-             */
-
-       // Integer.parseInt(info.getString(1));
         usuario u= null;
         if(info!=null){
-        //new usuario(info.getString(1),info.getString(2),Integer.parseInt(info.getString(3)),Integer.parseInt(info.getString(4)),info.getString(6),Integer.parseInt(info.getString(5)));
-        //arruser.add(u);
         while (info.moveToNext()){
             Log.d("STATE",info.getString(1));
-           // Toast.makeText(getApplicationContext(),info.getString(1),Toast.LENGTH_LONG).show();
             u=new usuario(info.getString(1),info.getString(2),Integer.parseInt(info.getString(3)),Integer.parseInt(info.getString(4)),info.getString(6),Integer.parseInt(info.getString(5)));
             listaruser.add(u);
-
-            //   alert();
         }}
         info.close();
         db.close();
@@ -93,9 +82,7 @@ public class List_users extends AppCompatActivity {
     private void obtenerListaUsuarios() {
         listanombres=new ArrayList<String>();
         for(int i=0;i<listaruser.size();i++){
-           // Log.d("STATE",listaruser.get(i).getNombre());
             listanombres.add("\t User name:"+listaruser.get(i).getNombre()+" \n  \t TELF: " +listaruser.get(i).getTelefono() );
         }
-        // Toast.makeText(getApplicationContext(),"llego 1 ",Toast.LENGTH_LONG).show();
     }
 }

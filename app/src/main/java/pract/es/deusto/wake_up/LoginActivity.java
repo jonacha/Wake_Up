@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginEnfermeraSQL() {
-       // db=conn.getReadableDatabase();
+
         String login= "select  cod_profesional_salud,email, nombre  from profesional_salud where( email='"+ nombre.getText().toString()+
                 "' OR nombre='"+nombre.getText().toString()+"') AND pass='"+pass.getText().toString()+"';";
 
@@ -76,25 +76,7 @@ public class LoginActivity extends AppCompatActivity {
          Toast.makeText(getApplicationContext(),"El usuario no existe ",Toast.LENGTH_LONG).show();
          limpiar();
      }
-       /*  if(info.moveToFirst()){
-            cod_profesional=Integer.parseInt(info.getString(0));
-            email_pro=info.getString(1);
-            nombre_pro=info.getString(2);
-            Intent intentMenu=new Intent(LoginActivity.this,Menu_Lateral.class);
-            intentMenu.putExtra("email",email_pro);
-            intentMenu.putExtra("cod_profesional",cod_profesional);
-            intentMenu.putExtra("nombre_pro",nombre_pro);
-            LoginActivity.this.startActivity(intentMenu);
-        }else{
-            Toast.makeText(this,"Pass o email o nick incorrectos", Toast.LENGTH_SHORT).show();
-        }
-        *//*
-        Intent intentMenu=new Intent(LoginActivity.this,Menu_Lateral.class);
-        intentMenu.putExtra("email",email_pro);
-        intentMenu.putExtra("cod_profesional",cod_profesional);
-        intentMenu.putExtra("nombre_pro",nombre_pro);
-        LoginActivity.this.startActivity(intentMenu);*/
-       db.close();
+
     }
 
     private void limpiar() {

@@ -28,7 +28,6 @@ public class Medicion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicion);
         double medicion, tiempo=-5.0;
-        String tiempo2="sdiopc";
         volver=findViewById(R.id.btn_vas_a_funcionar);
 
         volver.setOnClickListener(new View.OnClickListener() {
@@ -45,15 +44,11 @@ public class Medicion extends AppCompatActivity {
         mediciones =new LineGraphSeries<DataPoint>();
         Random rand=new Random();
         for(i=0;i<30;i++){
-          //  tiempo=tiempo+0.1;
-           // medicion=Math.sin(tiempo);
             tiempo=i;
             medicion=pulsaciones[rand.nextInt(20)];
             mediciones.appendData(new DataPoint(tiempo,medicion),true,30);
         }
         graph.addSeries(mediciones);
-/*
-       */
     }
 
 }

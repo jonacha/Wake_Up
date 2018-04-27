@@ -65,18 +65,14 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
     }
 
     private void agregarMarcador(double lat, double lng) {
-     LatLng coordenadas = new LatLng(lat, lng);
-        /*poner un control para cuando de 0
-        * */
-        //LatLng coordenadas = new LatLng(43.27118, -2.937599999999975);
+         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (marcador != null) marcador.remove();
-        marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi posicion actual")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
-        mMap.animateCamera(miUbicacion);
-        Log.d("STATE","Latitud: "+lat+"Altitud: "+lng);
-        volver=findViewById(R.id.btn_maps_volver);
+            marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi posicion actual")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.enfermera_icon)));
+                     mMap.animateCamera(miUbicacion);
 
+        volver=findViewById(R.id.btn_maps_volver);
         volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +89,6 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
         if (location != null) {
             lat = location.getLatitude();
             lng = location.getLongitude();
-
             agregarMarcador(lat, lng);
         }
 
@@ -122,21 +117,13 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
     };
 
     private void miUbicacion() {
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-
             return;
-
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        // Log.d("LOCATION","Alt: "+location.getAltitude()+"Lat:"+location.getLatitude());
         actualzarUbicacion(location);
-
-
     }
 }

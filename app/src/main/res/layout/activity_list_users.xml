@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="pract.es.deusto.wake_up.List_users">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Lista pacientes"/>
 
     <ListView
         android:layout_width="match_parent"

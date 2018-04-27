@@ -44,6 +44,8 @@ public class Menu_Lateral extends AppCompatActivity
     Button ListaPacientes;
     Button AddUser;
     Button Mediciones;
+    Button Widget;
+    Button FotoPerfil;
     private ImageView ivImage;
 
     @Override
@@ -52,19 +54,11 @@ public class Menu_Lateral extends AppCompatActivity
         setContentView(R.layout.activity_menu__lateral);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         Nombre_medico=getIntent().getExtras().getSerializable("nombre_pro").toString();
         Email_medico=getIntent().getExtras().getSerializable("email").toString();
         profresionalId=Integer.parseInt(getIntent().getExtras().getSerializable("cod_profesional").toString());
-        //Toast.makeText(this,"Pasos cosas: "+Nombre_medico+" /" +Email_medico+"/"+profresionalId, Toast.LENGTH_SHORT).show();
         Nombre=findViewById(R.id.nombre_Menu);
-
-       // Nombre.getText();
-
         PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
-
-/*
-   */
         ListaPacientes=findViewById(R.id.btn_listaPacientes);
         ListaPacientes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,8 +84,24 @@ public class Menu_Lateral extends AppCompatActivity
                 Menu_Lateral.this.startActivity(intentReg);
             }
         });
+/*
+        Widget=findViewById(R.id.btn_Cambiar_widget);
+        Widget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,Wake_Up_WidgetConfigureActivity.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });*/
 
-
+        FotoPerfil=findViewById(R.id.btn_Foto_perfil);
+        FotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,Foto_perfil.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -174,10 +184,6 @@ public class Menu_Lateral extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_lista) {
             Intent intentMenu=new Intent(Menu_Lateral.this,List_users.class);
-           /* intentMenu.putExtra("email",Email_medico);
-            intentMenu.putExtra("cod_profesional",profresionalId);
-            intentMenu.putExtra("nombre_pro",Nombre_medico);*/
-
             Menu_Lateral.this.startActivity(intentMenu);
         } else if (id == R.id.nav_medicion) {
             Intent intentReg=new Intent(Menu_Lateral.this,Medicion.class);
@@ -195,10 +201,8 @@ public class Menu_Lateral extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public static Bitmap decodificar(String imput){
-        byte []decodedByte= Base64.decode(imput,0);
-        return BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.length);
+    public static Bitmap decodificar(String imput) {
+        byte[] decodedByte = Base64.decode(imput, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
-
-
 }

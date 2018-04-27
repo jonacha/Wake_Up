@@ -9,7 +9,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registro" />
-        <activity android:name=".List_Pacientes_no_sirve" />
         <activity
             android:name=".Menu_Lateral"
             android:label="@string/title_activity_menu__lateral"
@@ -50,7 +50,23 @@
             android:label="@string/title_activity_maps_activiti" />
         <activity android:name=".List_users" />
         <activity android:name=".User_data" />
-        <activity android:name=".Foto_perfil"></activity>
+        <activity android:name=".Foto_perfil" />
+
+        <receiver android:name=".Wake_Up_Widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wake__up__widget_info" />
+        </receiver>
+
+        <activity android:name=".Wake_Up_WidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
