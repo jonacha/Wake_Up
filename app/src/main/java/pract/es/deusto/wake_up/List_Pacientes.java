@@ -25,7 +25,7 @@ public class List_Pacientes extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_list__pacientes);
+        setContentView(R.layout.activity_list_users);
         ArrayList<usuario> arruser=new ArrayList<>();
      /* conn=new ConexionSQLiteHelper(getApplicationContext(),"Wake_Up",null,1);
         listViewUsuarios=(ListView)findViewById(R.id.usuarios_lista);

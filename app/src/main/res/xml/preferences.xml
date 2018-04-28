@@ -16,7 +16,7 @@
     <EditTextPreference android:title="Image dirección"
         android:key="image"
         android:text="Enfermera_PNG"
-        android:summary="Resisdencia de trabajo"
+        android:summary="Imagen escogida"
         android:enabled="false"/>
 
 </PreferenceScreen>

@@ -17,7 +17,7 @@
             android:id="@+id/btnSelectPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selecionar imagen" />
+            android:text="Seleccionar imagen" />
 
 
     </LinearLayout>
