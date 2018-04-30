@@ -11,13 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
+import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
+import pract.es.deusto.wake_up.utilidades.usuario;
+
 public class List_users extends AppCompatActivity {
-    public  ConexionSQLiteHelper conn;
+    public ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
     private ArrayList<usuario> listaruser;
     ArrayList<String> listanombres;
@@ -58,6 +60,7 @@ public class List_users extends AppCompatActivity {
                 intentMenu.putExtra("descrip",listaruser.get(i).getDescripcion());
                 intentMenu.putExtra("altura",listaruser.get(i).getAltura());
                 intentMenu.putExtra("residencia",listaruser.get(i).getResidencia());
+                intentMenu.putExtra("image",listaruser.get(i).getImage());
 
                 List_users.this.startActivity(intentMenu);
                 //metodos para llamar a la clase ver datos paciente
@@ -69,10 +72,32 @@ public class List_users extends AppCompatActivity {
         String Query="select * from usuario where cod_enf="+Menu_Lateral.profresionalId+";";
         Cursor info=db.rawQuery(Query,null);
         usuario u= null;
+        String nombre;
+         String descripcion;
+        int altura;
+        int peso;
+        String residencia;
+        int telefono;
+        String image;
+        double x;
+        double y;
+
         if(info!=null){
         while (info.moveToNext()){
             Log.d("STATE",info.getString(1));
-            u=new usuario(info.getString(1),info.getString(2),Integer.parseInt(info.getString(3)),Integer.parseInt(info.getString(4)),info.getString(6),Integer.parseInt(info.getString(5)));
+            nombre=info.getString(1);
+            descripcion=info.getString(1);
+            altura=Integer.parseInt(info.getString(3));
+            peso=Integer.parseInt(info.getString(4));
+            residencia =info.getString(6);
+            telefono=Integer.parseInt(info.getString(5));
+            Log.e("image",info.getString(8));
+            Log.e("x",info.getString(9));
+            Log.e("y",info.getString(10));
+           image=info.getString(8);
+            x=Double.parseDouble(info.getString(9));
+            y=Double.parseDouble(info.getString(10));
+            u=new usuario(nombre,descripcion,altura,peso,residencia,telefono,image,x,y);
             listaruser.add(u);
         }}
         info.close();

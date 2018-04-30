@@ -1,22 +1,19 @@
 package pract.es.deusto.wake_up;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import pract.es.deusto.wake_up.utilidades.Utilidades;
+import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
 
 public class Registro extends AppCompatActivity {
     Button volver, registrar;
     EditText nombre,email,pass;
-    public  ConexionSQLiteHelper conn;
+    public ConexionSQLiteHelper conn;
     public  SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

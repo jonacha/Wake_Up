@@ -1,4 +1,4 @@
-package pract.es.deusto.wake_up;
+package pract.es.deusto.wake_up.utilidades;
 
 import java.io.Serializable;
 
@@ -17,6 +17,35 @@ public class usuario  implements Serializable{
     private int peso;
     private String residencia;
     private int telefono;
+    private String image;
+    private double x;
+    private double y;
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+
 
     public String getNombre() {
         return nombre;
@@ -66,7 +95,7 @@ public class usuario  implements Serializable{
         this.telefono = telefono;
     }
 
-    public usuario(String nombre, String descripcion, int altura, int peso, String residencia, int telefono) {
+    public usuario(String nombre, String descripcion, int altura, int peso, String residencia, int telefono,String image,double x,double y) {
 
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -74,6 +103,9 @@ public class usuario  implements Serializable{
         this.peso = peso;
         this.residencia = residencia;
         this.telefono = telefono;
+        this.x=x;
+        this.image=image;
+        this.y=y;
     }
 
     public usuario() {

@@ -10,6 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/heart"
+        android:id="@+id/imagen_user"
         android:layout_gravity="center"/>
     <EditText
         android:id="@+id/nombre_reg_user"
@@ -47,6 +48,11 @@
         android:layout_height="wrap_content"
         android:hint="Descriccion"
         android:inputType="text"/>
+    <Button
+        android:id="@+id/btn_imagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="selecionar imagen"/>
     <Button
         android:id="@+id/btn_registro_user"
         android:layout_width="match_parent"

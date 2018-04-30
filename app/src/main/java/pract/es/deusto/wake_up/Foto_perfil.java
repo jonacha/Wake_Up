@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -28,7 +26,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import pract.es.deusto.wake_up.utilidades.Utility;
 
 public class Foto_perfil extends AppCompatActivity {
 
@@ -171,7 +170,7 @@ public class Foto_perfil extends AppCompatActivity {
         ivImage.setImageBitmap(thumbnail);
         String imagen_Codificada= CodificarLaIMagen(thumbnail);
         guardarIMagen(imagen_Codificada);
-
+        Log.e("Direccion",destination.toString());
      /*   SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         String Residencia=SP.getString("image","NA");*/

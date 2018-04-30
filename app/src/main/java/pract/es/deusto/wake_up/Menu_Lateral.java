@@ -1,20 +1,12 @@
 package pract.es.deusto.wake_up;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +21,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
 
 public class Menu_Lateral extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,7 +32,7 @@ public class Menu_Lateral extends AppCompatActivity
     static int profresionalId;
     static  String Nombre_medico;
     static  String Email_medico;
-    public  ConexionSQLiteHelper conn;
+    public ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
     Button ListaPacientes;
     Button AddUser;

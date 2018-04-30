@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
 import pract.es.deusto.wake_up.utilidades.Utilidades;
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     String email_pro;
     String nombre_pro;
 
-    public  ConexionSQLiteHelper conn;
+    public ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

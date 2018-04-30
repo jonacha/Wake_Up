@@ -1,4 +1,4 @@
-package pract.es.deusto.wake_up;
+package pract.es.deusto.wake_up.utilidades;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

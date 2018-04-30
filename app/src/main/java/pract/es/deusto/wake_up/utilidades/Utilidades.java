@@ -18,6 +18,9 @@ public class Utilidades {
    public static final String CREATE_TABLE_ENFERMERA="CREATE TABLE IF NOT EXISTS profesional_salud ( cod_profesional_salud INTEGER primary key \\\n" +
            "  AUTOINCREMENT NOT NULL, nombre TEXT not null UNIQUE, pass TEXT not null , \\\n" +
            "  email TEXT not null UNIQUE" ;
-   public static final String CREATE_TABLE_USER="CREATE TABLE IF NOT EXISTS usuario (cod_usuario INTEGER primary key  AUTOINCREMENT NOT NULL, nombre TEXT not null UNIQUE, descripcion TEXT not null ,altura INTEGER, peso INTEGER,telefono INTEGER , residencia TEXT,  cod_enf INTEGER not null); ";
+   public static final String CREATE_TABLE_USER="CREATE TABLE IF NOT EXISTS usuario (cod_usuario " +
+           "INTEGER primary key  AUTOINCREMENT NOT NULL, nombre TEXT not null UNIQUE, " +
+           "descripcion TEXT not null ,altura INTEGER, peso INTEGER,telefono INTEGER , " +
+           "residencia TEXT,  cod_enf INTEGER not null,image TEXT,X NUMERIC ,Y NUMERIC ); ";
 
 }

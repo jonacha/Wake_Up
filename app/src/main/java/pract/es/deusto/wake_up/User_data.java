@@ -2,9 +2,11 @@ package pract.es.deusto.wake_up;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +17,25 @@ import android.hardware.SensorEventListener;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.widget.ImageView;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 public class User_data extends AppCompatActivity implements SensorEventListener {
     EditText nombre_EdT,telefono_EdT,peso_EdT,altura_EdT,residencia_Edt,decripcion_EdT,acelerometro_EdT;
     Button volver_btn,llamar_btn;
-    String tel,nombre,peso,altura,resi,decri,aceler;
+    String tel,nombre,peso,altura,resi,decri,aceler,image;
     private SensorManager Acelerometro;
     private Sensor senAccelerometer;
     private long UltimaLectura = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
-
+    private ImageView ivImage;
 
 
 
@@ -41,6 +50,7 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
         altura=getIntent().getExtras().getSerializable("altura").toString();
         resi=getIntent().getExtras().getSerializable("residencia").toString();
         decri=getIntent().getExtras().getSerializable("descrip").toString();
+        image=getIntent().getExtras().getSerializable("image").toString();
 
 
 
@@ -59,6 +69,21 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
         residencia_Edt.setText("Residencia: "+resi);
         decripcion_EdT.setText("Description: "+decri);
 
+        ivImage=findViewById(R.id.image_perfil);
+        Bitmap bm=null;
+
+        if (image != "Vacio") {
+
+            Uri uri= Uri.parse(image);
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        ivImage.setImageBitmap(bm);
 
         llamar_btn=findViewById(R.id.btn_llamar);
         llamar_btn.setOnClickListener(new View.OnClickListener() {
