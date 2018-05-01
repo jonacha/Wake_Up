@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import java.util.ArrayList;
 
 import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
+import pract.es.deusto.wake_up.utilidades.Utility;
 import pract.es.deusto.wake_up.utilidades.usuario;
 
 public class List_users extends AppCompatActivity {
@@ -63,6 +64,8 @@ public class List_users extends AppCompatActivity {
                 intentMenu.putExtra("image",listaruser.get(i).getImage());
 
                 List_users.this.startActivity(intentMenu);
+                boolean result= Utility.checkPermission(List_users.this);
+                Log.e("Permisos",""+result);
                 //metodos para llamar a la clase ver datos paciente
             }
         });

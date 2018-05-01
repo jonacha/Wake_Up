@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.provider.MediaStore;
@@ -34,7 +35,7 @@ import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
 import pract.es.deusto.wake_up.utilidades.Utility;
 
 public class NewUser extends AppCompatActivity {
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private int  SELECT_FILE = 1;
     Button registrarse;
     Button volver;
     Button imagen;
@@ -44,6 +45,8 @@ public class NewUser extends AppCompatActivity {
     public SQLiteDatabase db;
     private String userChoosenTask;
     String direccionIMagen="Vacio";
+    double[] xArray=new double[20];
+    double[] yArray=new double[20];
     double x;
     double y;
     @Override
@@ -58,10 +61,18 @@ public class NewUser extends AppCompatActivity {
         descripcion=findViewById(R.id.descripcion_reg_user);
         telefono=findViewById(R.id.telephhono_user);
         ivImage = (ImageView) findViewById(R.id.imagen_user);
-
+        double suma=0.0001;
+        x=-2.9366;
+        y=43.2702;
+        for(int i=0;i<xArray.length;i++){
+            xArray[i]=x;
+            yArray[i]=y;
+            x=x+suma;
+            y=y+suma;
+        }
         Random r=new Random(System.currentTimeMillis());
-        x=-2.9+(3-2.9)*r.nextDouble();
-        y=43.2+(44-43.2)*r.nextDouble();
+        x=xArray[r.nextInt(20)];
+        y=yArray[r.nextInt(20)];
         Log.e("X:",""+x);
         Log.e("Y:",""+y);
         volver.setOnClickListener(new View.OnClickListener() {
@@ -117,12 +128,8 @@ public class NewUser extends AppCompatActivity {
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChoosenTask.equals("Tomar Foto"))
-                        cameraIntent();
-                    else if(userChoosenTask.equals(" Galeria Imagenes"))
+                    if(userChoosenTask.equals(" Galeria Imagenes"))
                         galleriaIntent();
-                } else {
-                    //code for deny
                 }
                 break;
         }
@@ -130,7 +137,7 @@ public class NewUser extends AppCompatActivity {
 
 
     private void selectImage() {
-        final CharSequence[] items = { "Tomar Foto", " Galeria Imagenes",
+        final CharSequence[] items = {  " Galeria Imagenes",
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(NewUser.this);
@@ -140,12 +147,7 @@ public class NewUser extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 boolean result= Utility.checkPermission(NewUser.this);
 
-                if (items[item].equals("Tomar Foto")) {
-                    userChoosenTask ="Tomar Foto";
-                    if(result)
-                        cameraIntent();
-
-                } else if (items[item].equals(" Galeria Imagenes")) {
+             if (items[item].equals(" Galeria Imagenes")) {
                     userChoosenTask =" Galeria Imagenes";
                     if(result)
                         galleriaIntent();
@@ -164,14 +166,8 @@ public class NewUser extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
-
     }
 
-    private void cameraIntent()
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAMERA);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -180,41 +176,10 @@ public class NewUser extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
-                onCaptureImageResult(data);
+
         }
     }
 
-    private void onCaptureImageResult(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-
-
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ivImage.setImageBitmap(thumbnail);
-
-     /*   SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
-        String Residencia=SP.getString("image","NA");*/
-        Log.e("Direccion",destination.toString());
-
-        direccionIMagen=destination.toString();
-    }
 
     private void onSelectFromGalleryResult(Intent data) {
         Log.e("direccion",data.getDataString());

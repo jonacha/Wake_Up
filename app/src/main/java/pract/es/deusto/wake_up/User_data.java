@@ -2,6 +2,7 @@ package pract.es.deusto.wake_up;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,10 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.hardware.SensorEventListener;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.widget.ImageView;
+import pract.es.deusto.wake_up.utilidades.Utility;
+
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -36,8 +37,7 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
     private ImageView ivImage;
-
-
+    Bitmap bm=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,20 +70,6 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
         decripcion_EdT.setText("Description: "+decri);
 
         ivImage=findViewById(R.id.image_perfil);
-        Bitmap bm=null;
-
-        if (image != "Vacio") {
-
-            Uri uri= Uri.parse(image);
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-        ivImage.setImageBitmap(bm);
 
         llamar_btn=findViewById(R.id.btn_llamar);
         llamar_btn.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +93,43 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
         Acelerometro = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = Acelerometro.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         Acelerometro.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+        boolean result= Utility.checkPermission(User_data.this);
+        if(result){
+            accederGalleria();
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    accederGalleria();
+
+                    break;
+        }
+    }
+    }
+
+    private void accederGalleria()
+    {
+
+        try {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(image));
+        } catch (IOException e) {
+            e.printStackTrace();
+            bm = null;
+        }
+        if (bm!=null){
+            ivImage.setImageBitmap(bm);
+        }
 
     }
+
     private void dialContactPhone(final String phoneNumber){
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneNumber,null)));
     }
@@ -152,6 +173,9 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
 
 
     }
+
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
