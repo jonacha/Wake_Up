@@ -93,8 +93,8 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
         Acelerometro = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = Acelerometro.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         Acelerometro.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
-        boolean result= Utility.checkPermission(User_data.this);
-        if(result){
+        boolean permisos_Galeria= Utility.checkPermission(User_data.this);
+        if(permisos_Galeria){
             accederGalleria();
         }
     }
@@ -113,17 +113,19 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
     private void accederGalleria()
     {
 
-        try {
+
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(image));
-        } catch (IOException e) {
-            e.printStackTrace();
-            bm = null;
-        }
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(image));
+            }catch (IOException z){
+                bm = null;
+            }
+
+
         if (bm!=null){
             ivImage.setImageBitmap(bm);
         }
