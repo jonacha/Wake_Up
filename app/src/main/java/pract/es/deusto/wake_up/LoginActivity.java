@@ -1,5 +1,6 @@
 package pract.es.deusto.wake_up;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -77,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
          Toast.makeText(getApplicationContext(),"El usuario no existe ",Toast.LENGTH_LONG).show();
          limpiar();
      }
+
 
     }
 

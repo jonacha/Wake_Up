@@ -30,8 +30,7 @@
             android:name=".Menu_Lateral"
             android:label="@string/title_activity_menu__lateral"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewUser"
-            />
+        <activity android:name=".NewUser" />
         <activity android:name=".Medicion" />
         <activity android:name=".MySettings" />
         <!--
@@ -49,7 +48,7 @@
         <activity
             android:name=".Maps_activiti"
             android:label="@string/title_activity_maps_activiti" />
-        <activity android:name=".List_users"/>
+        <activity android:name=".List_users" />
         <activity android:name=".User_data" />
         <activity android:name=".Foto_perfil" />
 
@@ -68,6 +67,16 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".clockWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/clock_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
