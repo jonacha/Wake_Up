@@ -32,6 +32,7 @@ public class Menu_Lateral extends AppCompatActivity
     static int profresionalId;
     static  String Nombre_medico;
     static  String Email_medico;
+    static String image;
     public ConexionSQLiteHelper conn;
     public SQLiteDatabase db;
     Button ListaPacientes;
@@ -77,15 +78,7 @@ public class Menu_Lateral extends AppCompatActivity
                 Menu_Lateral.this.startActivity(intentReg);
             }
         });
-/*
-        Widget=findViewById(R.id.btn_Cambiar_widget);
-        Widget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentReg=new Intent(Menu_Lateral.this,Wake_Up_WidgetConfigureActivity.class);
-                Menu_Lateral.this.startActivity(intentReg);
-            }
-        });*/
+
 
         FotoPerfil=findViewById(R.id.btn_Foto_perfil);
         FotoPerfil.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +122,7 @@ public class Menu_Lateral extends AppCompatActivity
         SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         ivImage=findViewById(R.id.image_menu);
 
-        String image=SP.getString("image","NA");
+        image=SP.getString("image","NA");
         Log.d("STATE","image: "+ image);
         if(image.equalsIgnoreCase("NA")) {
 

@@ -1,6 +1,7 @@
 package pract.es.deusto.wake_up;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -40,13 +41,23 @@ public class clockWidget extends AppWidgetProvider {
     }
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
 
         String fecha= ""+Calendar.getInstance().getTime();
-
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.clock_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setImageViewBitmap(R.id.imgtiempo,BuildUpdate(fecha,100,context));
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+        Intent intentUpdate = new Intent(context, clockWidget.class);
+        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+
+        int[] idArray = new int[]{appWidgetId};
+        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
+
+
+        PendingIntent pendingUpdate = PendingIntent.getBroadcast(
+                context, appWidgetId, intentUpdate,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.update, pendingUpdate);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
     @Override
@@ -70,5 +81,7 @@ public class clockWidget extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+
 }
 

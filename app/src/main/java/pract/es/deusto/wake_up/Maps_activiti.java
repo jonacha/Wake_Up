@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,32 +62,36 @@ public class Maps_activiti extends FragmentActivity implements OnMapReadyCallbac
         String nombre;
         double x;
         double y;
-        info.moveToFirst();
-        if (info != null) {
-            Log.e("Cordenadas","Y:"+ info.getString(2)+" X:"+info.getString(1)+"nombre"+info.getString(0));
-            nombre = info.getString(0);
-            x = Double.parseDouble(info.getString(1));
-            y = Double.parseDouble(info.getString(2));
-            LatLng coordenadas = new LatLng(y,x);
-            //Log.e("Cordenadas","Y:"+ y+" X:"+x);
-            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
-            mMap.addMarker(new MarkerOptions().position(coordenadas).title(nombre)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.anciano)));
-            mMap.animateCamera(miUbicacion);
-            while (info.moveToNext()) {
-
-                Log.e("Cordenadas","Y:"+ info.getString(2)+" X:"+info.getString(1)+"nombre"+info.getString(0));
-               nombre = info.getString(0);
+        try {
+            info.moveToFirst();
+            if (info != null) {
+                Log.e("Cordenadas", "Y:" + info.getString(2) + " X:" + info.getString(1) + "nombre" + info.getString(0));
+                nombre = info.getString(0);
                 x = Double.parseDouble(info.getString(1));
                 y = Double.parseDouble(info.getString(2));
-                coordenadas = new LatLng(y,x);
+                LatLng coordenadas = new LatLng(y, x);
                 //Log.e("Cordenadas","Y:"+ y+" X:"+x);
-                    miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
+                CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
                 mMap.addMarker(new MarkerOptions().position(coordenadas).title(nombre)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.anciano)));
                 mMap.animateCamera(miUbicacion);
+                while (info.moveToNext()) {
 
+                    Log.e("Cordenadas", "Y:" + info.getString(2) + " X:" + info.getString(1) + "nombre" + info.getString(0));
+                    nombre = info.getString(0);
+                    x = Double.parseDouble(info.getString(1));
+                    y = Double.parseDouble(info.getString(2));
+                    coordenadas = new LatLng(y, x);
+                    //Log.e("Cordenadas","Y:"+ y+" X:"+x);
+                    miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
+                    mMap.addMarker(new MarkerOptions().position(coordenadas).title(nombre)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.anciano)));
+                    mMap.animateCamera(miUbicacion);
+
+                }
             }
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Añada usuarios a la aplicacion ",Toast.LENGTH_LONG).show();
         }
         info.close();
         db.close();

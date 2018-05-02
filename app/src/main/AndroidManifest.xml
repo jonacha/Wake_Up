@@ -52,22 +52,6 @@
         <activity android:name=".User_data" />
         <activity android:name=".Foto_perfil" />
 
-        <receiver android:name=".Wake_Up_Widget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/wake__up__widget_info" />
-        </receiver>
-
-        <activity android:name=".Wake_Up_WidgetConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
         <receiver android:name=".clockWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
