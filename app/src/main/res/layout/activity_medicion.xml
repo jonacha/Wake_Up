@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context="pract.es.deusto.wake_up.Medicion">
     <Button
+        android:id="@+id/btn_recargar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="463dp"
+        tools:ignore="MissingConstraints" />
+    <Button
         android:id="@+id/btn_vas_a_funcionar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
