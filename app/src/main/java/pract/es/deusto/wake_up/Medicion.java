@@ -1,14 +1,20 @@
 package pract.es.deusto.wake_up;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
+
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,19 +53,24 @@ public class Medicion extends AppCompatActivity {
     private static final String THINGSPEAK_UPDATE_URL = "https://api.thingspeak.com/update?";
     private static final String THINGSPEAK_CHANNEL_URL = "https://api.thingspeak.com/channels/";
     private static final String THINGSPEAK_FEEDS_LAST = "/feeds/1.json?";
+    private static final  String URLTemp="https://api.thingspeak.com/channels/500106/fields/1.json?api_key=T9S7BOWQL8RGMGHG&results=10";
+    private static final  String URLHum="https://api.thingspeak.com/channels/500106/fields/2.json?api_key=T9S7BOWQL8RGMGHG&results=10";
+
     Button volver;
     TextView t1,t2;
     Button actualizar;
-    LineGraphSeries<DataPoint> mediciones;
-    int pulsaciones []=new int [10];
+    LineGraphSeries<DataPoint> temperatura;
+    int temperaturas []=new int [10];
+    LineGraphSeries<DataPoint> Humedad;
+    int Humedades []=new int [10];
     GraphView graph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new FetchThingspeakTask().execute();
+
         int i=80;
         int j=0;
 /*        for (j=0;j<10;j++){
-            pulsaciones[j]=i;
+            temperaturas[j]=i;
             i++;
         }*/
         super.onCreate(savedInstanceState);
@@ -77,51 +88,42 @@ public class Medicion extends AppCompatActivity {
                 Medicion.this.startActivity(intentMenu);
             }
         });
-        new FetchThingspeakTask().execute();
         graph =findViewById(R.id.graph);
-        mediciones =new LineGraphSeries<DataPoint>();
+
+        graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setMargin(900);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.MIDDLE);
+        graph.getViewport().setScrollable(true);
+        new FetchThingspeakTaskTemp().execute();
+        new FetchThingspeakTaskTemp2().execute();
+
+        temperatura =new LineGraphSeries<DataPoint>();
         Random rand=new Random();
 
-      //  new FetchThingspeakTask().execute();
-       // graph.addSeries(mediciones);
+      //  new FetchThingspeakTaskTemp().execute();
+       // graph.addSeries(temperatura);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    new FetchThingspeakTask().execute();
+                    graph.removeAllSeries();
+                    new FetchThingspeakTaskTemp().execute();
+                    new FetchThingspeakTaskTemp2().execute();
                 }
                 catch(Exception e){
                     Log.e("ERROR", e.getMessage(), e);
                 }
             }
         });
-/*
-        setContentView(R.layout.Medicion);
-        t1=(TextView)findViewById(R.id.textView2);
-        t2=(TextView)findViewById(R.id.textView3);
-        b1=(Button) findViewById(R.id.button);
-        t2.setText("");
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new ThinkSpeak.FetchThingspeakTask().execute();
-                }
-                catch(Exception e){
-                    Log.e("ERROR", e.getMessage(), e);
-                }
-            }
-        });*/
+}
 
-    }
-
-    class FetchThingspeakTask extends AsyncTask<Void, Void, String> {
+    class FetchThingspeakTaskTemp extends AsyncTask<Void, Void, String> {
         protected void onPreExecute() {
          //   t2.setText("Fetching Data from Server.Please Wait...");
         }
         protected String doInBackground(Void... urls) {
             try {
-                URL url = new URL("https://api.thingspeak.com/channels/500106/fields/1.json?api_key=T9S7BOWQL8RGMGHG&results=10");
+                URL url = new URL(URLTemp);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -142,6 +144,7 @@ public class Medicion extends AppCompatActivity {
                 return null;
             }
         }
+
         protected void onPostExecute(String response) {
             if(response == null) {
                 Toast.makeText(Medicion.this, "There was an error", Toast.LENGTH_SHORT).show();
@@ -149,20 +152,98 @@ public class Medicion extends AppCompatActivity {
             }
             try {
                 JSONObject channel = (JSONObject) new JSONTokener(response).nextValue();
-                Log.e("pelos", channel.toString());
                 JSONArray jArray = channel.getJSONArray("feeds");
                 for(int i=0;i<jArray.length();i++){
-                    pulsaciones[i]=jArray.getJSONObject(i).getInt("field1");
+                    temperaturas[i]=jArray.getJSONObject(i).getInt("field1");
                 }
                 double medicion, tiempo=-5.0;
-                mediciones =new LineGraphSeries<DataPoint>();
+                temperatura =new LineGraphSeries<DataPoint>();
                 for(int i=0;i<10;i++){
                     tiempo=i;
-                    medicion=pulsaciones[i];
-                    mediciones.appendData(new DataPoint(tiempo,medicion),true,10);
+                    medicion=temperaturas[i];
+                    temperatura.appendData(new DataPoint(tiempo,medicion),true,10);
                 }
-                graph.addSeries(mediciones);
-                Log.e("pelo2", pulsaciones[1]+"");
+                temperatura.setAnimated(true);
+                temperatura.setColor(Color.RED);
+                temperatura.setDataPointsRadius(10);
+
+                temperatura.setTitle("Temperatura");
+                temperatura.setThickness(5);
+                temperatura.setOnDataPointTapListener(new OnDataPointTapListener() {
+                    @Override
+                    public void onTap(Series series, DataPointInterface dataPointInterface) {
+                        Toast.makeText(Medicion.this, "Temepatura: "+dataPointInterface, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                graph.addSeries(temperatura);
+
+
+                /*double v1 = channel.getDouble(THINGSPEAK_FIELD1);
+                if(v1>=90)
+                    t1.setText("HI ALL  ");
+                else
+                    t1.setText("NO VALUES");*/
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    class FetchThingspeakTaskTemp2 extends AsyncTask<Void, Void, String> {
+        protected void onPreExecute() {
+            //   t2.setText("Fetching Data from Server.Please Wait...");
+        }
+        protected String doInBackground(Void... urls) {
+            try {
+                URL url = new URL(URLHum);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                Toast.makeText(Medicion.this, "There was an error", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject channel = (JSONObject) new JSONTokener(response).nextValue();
+                JSONArray jArray = channel.getJSONArray("feeds");
+                for(int i=0;i<jArray.length();i++){
+                    Humedades[i]=jArray.getJSONObject(i).getInt("field2");
+                }
+                double medicion, tiempo=-5.0;
+                Humedad =new LineGraphSeries<DataPoint>();
+                for(int i=0;i<10;i++){
+                    tiempo=i;
+                    medicion=Humedades[i];
+                    Humedad.appendData(new DataPoint(tiempo,medicion),true,10);
+                }
+                Humedad.setColor(Color.GREEN);
+                Humedad.setTitle("Humedad");
+                Humedad.setThickness(5);
+                Humedad.setOnDataPointTapListener(new OnDataPointTapListener() {
+                    @Override
+                    public void onTap(Series series, DataPointInterface dataPointInterface) {
+                        Toast.makeText(Medicion.this, "Humedad: "+dataPointInterface, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                graph.addSeries(Humedad);
                 /*double v1 = channel.getDouble(THINGSPEAK_FIELD1);
                 if(v1>=90)
                     t1.setText("HI ALL  ");
