@@ -1,6 +1,7 @@
 package pract.es.deusto.wake_up;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.nio.ByteBuffer;
@@ -34,7 +36,7 @@ public class Ble extends AppCompatActivity {
     public static UUID RX_UUID = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8");
     // UUID for the BTLE client characteristic which is necessary for notifications.
     public static UUID CLIENT_UUID = convertFromInteger(0x2902);
-
+    private ImageView ivImage;
     // UI elements
     private TextView messages;
     private EditText input;
@@ -131,9 +133,14 @@ public class Ble extends AppCompatActivity {
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
             Datos_para_leer.setText(characteristic.getStringValue(0));
-            if(characteristic.getStringValue(0).equals("Tengo un problemon")||characteristic.getStringValue(0).equals("Que me he caido")){
+            if(characteristic.getStringValue(0).equals("Tengo un problemon")){
                 dialContactPhone("688678930");
-
+                ivImage.setImageResource(R.drawable.problemon2);
+            }if(characteristic.getStringValue(0).equals("Que me he caido")){
+                ivImage.setImageResource(R.drawable.caida);
+                dialContactPhone("688678930");
+            }else{
+                ivImage.setImageResource(R.drawable.todobien);
             }
            // writeLine("Received: " + characteristic.getStringValue(0));
         }
@@ -165,10 +172,10 @@ public class Ble extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ble);
-
+        ivImage=findViewById(R.id.image_estado);
         // Grab references to UI elements.
         messages = (TextView) findViewById(R.id.messages);
-        input = (EditText) findViewById(R.id.input);
+        //input = (EditText) findViewById(R.id.input);
         Datos_para_leer=(TextView) findViewById(R.id.Datos_para_leer);
         adapter = BluetoothAdapter.getDefaultAdapter();
     }
