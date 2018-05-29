@@ -40,6 +40,7 @@ public class Menu_Lateral extends AppCompatActivity
     Button Mediciones;
     Button Widget;
     Button FotoPerfil;
+    Button Ble;
     private ImageView ivImage;
 
     @Override
@@ -88,7 +89,14 @@ public class Menu_Lateral extends AppCompatActivity
                 Menu_Lateral.this.startActivity(intentReg);
             }
         });
-
+        Ble=findViewById(R.id.btn_LLamada);
+        Ble.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReg=new Intent(Menu_Lateral.this,Ble.class);
+                Menu_Lateral.this.startActivity(intentReg);
+            }
+        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
