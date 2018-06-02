@@ -50,7 +50,7 @@
         android:id="@+id/btn_LLamada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Llamada de Emercia"/>
+        android:text="Llamada de emergencia"/>
 
 
 <!--

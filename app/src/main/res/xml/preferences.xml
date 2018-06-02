@@ -2,19 +2,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference android:title="Residencia"
         android:key="residencia"
+        android:icon="@drawable/ic_local_hospital_black_24dp"
         android:summary="Resisdencia de trabajo"/>
    <SwitchPreference
        android:title="Geolocalizacion"
+       android:icon="@drawable/ic_gps_fixed_black_24dp"
        android:key="localizacion"
        android:summary="Geolocalizacion active"/>
     <SwitchPreference
         android:key="Bluethood"
+        android:icon="@drawable/ic_bluetooth_black_24dp"
         android:title="Bluethood"
         android:summary="Bluethod active"
         android:defaultValue="false"
         />
-    <EditTextPreference android:title="Image dirección"
+    <SwitchPreference
+        android:key="WI_FI"
+        android:icon="@drawable/ic_wifi_black_24dp"
+        android:title="WIFI"
+        android:summary="WIFI active"
+        android:defaultValue="false"
+        />
+    <EditTextPreference android:title="Image escogida"
         android:key="image"
+        android:icon="@drawable/ic_image_black_24dp"
         android:text="Enfermera_PNG"
         android:summary="Imagen escogida"
         android:enabled="false"/>

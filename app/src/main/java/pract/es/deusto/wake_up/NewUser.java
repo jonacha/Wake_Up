@@ -1,5 +1,6 @@
 package pract.es.deusto.wake_up;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -10,9 +11,11 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 import pract.es.deusto.wake_up.utilidades.ConexionSQLiteHelper;
 import pract.es.deusto.wake_up.utilidades.Utility;
@@ -49,6 +53,7 @@ public class NewUser extends AppCompatActivity {
     double[] yArray=new double[20];
     double x;
     double y;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +124,7 @@ public class NewUser extends AppCompatActivity {
                 "    values     ('"+ nombre_user.getText().toString()+"','"+descripcion.getText().toString()+"" +
                 "',"+alt+","+pes+","+tel+",'"+Residencia+"'" +
                 ","+Menu_Lateral.profresionalId+",'"+direccionIMagen+"',"+x+","+y+");";
-
+        //Toast.makeText(getApplicationContext(),direccionIMagen,Toast.LENGTH_LONG).show();
         db.execSQL(insertExaple);
         db.close();
     }
@@ -183,16 +188,44 @@ public class NewUser extends AppCompatActivity {
 
     private void onSelectFromGalleryResult(Intent data) {
         Log.e("direccion",data.getDataString());
-        direccionIMagen=data.getDataString();
+       direccionIMagen=data.getDataString();
         Bitmap bm=null;
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+
+                requestPermission(bm);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         ivImage.setImageBitmap(bm);
     }
+    private void requestPermission(Bitmap bm) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+            GuardarImagen(bm);
+        }
+    }
+    private void GuardarImagen(Bitmap image){
+
+        //Guardar imagen
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(Environment.getExternalStorageDirectory() + nombre_user.getText().toString());
+
+
+
+            image.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+          //  Toast.makeText(getApplicationContext(), e.toString(),Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }

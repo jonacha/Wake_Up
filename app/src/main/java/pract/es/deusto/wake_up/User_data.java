@@ -1,25 +1,36 @@
 package pract.es.deusto.wake_up;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import pract.es.deusto.wake_up.utilidades.Utility;
 
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -38,7 +49,7 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
     private static final int SHAKE_THRESHOLD = 600;
     private ImageView ivImage;
     Bitmap bm=null;
-
+    private static final int PICK_FROM_GALLERY = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +109,7 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
             accederGalleria();
         }
     }
-
+/*
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
@@ -108,17 +119,60 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
                     break;
         }
     }
+    }*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //accederGalleria();
+
+                    break;
+                }
+            case PICK_FROM_GALLERY:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,Uri.parse(image));
+                    startActivityForResult(galleryIntent, PICK_FROM_GALLERY);
+                } else {
+                    //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery
+                }
+                break;
+
+        }
     }
 
     private void accederGalleria()
-    {
+
+    {  /*     FileInputStream in = null;
+        try {
+            in = new FileInputStream(Environment.getExternalStorageDirectory()+image);
+            BufferedInputStream buf = new BufferedInputStream(in);
+            byte[] bMapArray= new byte[buf.available()];
+            buf.read(bMapArray);
+            Bitmap bMap = BitmapFactory.decodeByteArray(bMapArray, 0, bMapArray.length);
 
 
+            ivImage.setImageBitmap(bMap);
+
+            Toast.makeText(getApplicationContext(),image+ " Funciono pero no",Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(),image+ "  "+e.toString(),Toast.LENGTH_LONG).show();;
+            Log.d("No Hay foto","No hay foto de este usuario");
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(),image + "  "+e.toString(),Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+            Utility.checkPermission(User_data.this);
             Intent intent = new Intent();
             intent.setType("image/*");
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
+            startActivityForResult(Intent.createChooser(intent, "Select File"),1);
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(image));
             }catch (IOException z){
@@ -128,6 +182,22 @@ public class User_data extends AppCompatActivity implements SensorEventListener 
 
         if (bm!=null){
             ivImage.setImageBitmap(bm);
+        }*/
+        try {
+            if (ActivityCompat.checkSelfPermission(User_data.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(User_data.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+            } else {
+                Utility.checkPermission(User_data.this);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(image));
+                ivImage.setImageBitmap(bm);
+            }
+        } catch (Exception e) {
+           // Toast.makeText(getApplicationContext(),image+ e ,Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
 
     }

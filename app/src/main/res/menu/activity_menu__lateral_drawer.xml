@@ -22,6 +22,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Select foto" />
         <item
+            android:id="@+id/nav_bluethood"
+            android:icon="@drawable/ic_bluetooth_black_24dp"
+            android:title="Estado anciano" />
+        <item
             android:id="@+id/nav_logoff"
             android:icon="@drawable/ic_input_black_24dp"
             android:title="Salir" />
