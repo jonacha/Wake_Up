@@ -14,9 +14,9 @@
 - Acelerómetro para determinar la velocidad con la que se mueve el paciente.
 - Conexión WIFI con canal think speak para ver la humedad y el tiempo en un gráfico.
 - Conexión BLE para ver el estado de anciano conectado a un Arduino. Estados de anciano:
-	  - Si el anciano se cae: Llamada de emergencia
-	  - Si el anciano pide ayuda: Llamada de emergencia
-	  - El anciano está bien
+	- Si el anciano se cae: Llamada de emergencia
+	- Si el anciano pide ayuda: Llamada de emergencia
+	- El anciano está bien
 
 ----------------------------------------------------------------------------------------
 # Wake_Up INGLÉS
